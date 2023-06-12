@@ -137,9 +137,7 @@ const App = () => {
           </Typography>
           <NFTMintComponent />
 
-          <Button variant="contained" onClick={handleMintButtonClick} sx={{ mt: 2 }}>
-            Mint {numNFTs} NFT(s)
-          </Button>
+          
         </Box>
       </StyledContainer>
     </ThemeProvider>
