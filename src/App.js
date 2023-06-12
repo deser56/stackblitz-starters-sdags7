@@ -38,7 +38,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
   justifyContent: 'center', // Center the components horizontally
   [theme.breakpoints.up('md')]: {
     margin: '0 auto', // Center the container horizontally on larger screens
-    maxWidth: '960px', // Limit the width of the container on larger screens
+    maxWidth: '10000px', // Limit the width of the container on larger screens
   },
 }));
 
