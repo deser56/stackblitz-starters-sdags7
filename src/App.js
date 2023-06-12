@@ -29,18 +29,15 @@ const gradientLight = `linear-gradient(to bottom right, ${primaryColor}, #C5E1A5
 const gradientDark = `linear-gradient(to bottom right, #558B2F, ${primaryColor})`;
 
 // Styled components for customized styling
-const StyledContainer = styled('div')(({ theme }) => ({
+const StyledContainer = styled('div')({
   backgroundColor: '#f7f7f7',
   padding: '24px',
   minHeight: '100vh',
   display: 'flex',
-  alignItems: 'center', // Center the components vertically
-  justifyContent: 'center', // Center the components horizontally
-  [theme.breakpoints.up('md')]: {
-    margin: '0 auto', // Center the container horizontally on larger screens
-    maxWidth: '960px', // Limit the width of the container on larger screens
-  },
-}));
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
 
 const StyledCard = styled(Card)({
   maxWidth: 400,
@@ -108,13 +105,7 @@ const App = () => {
       </Menu>
 
       <StyledContainer>
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          width="100%"
-        >
+        <Stack spacing={4} sx={{ width: '100%' }}>
           <ConnectWallet />
           <Typography variant="h4" gutterBottom>
             NFT Preview
@@ -137,14 +128,13 @@ const App = () => {
           </Typography>
           <NFTMintComponent />
 
-          
-        </Box>
+         
+        </Stack>
       </StyledContainer>
     </ThemeProvider>
   );
 };
 
 export default App;
-
 
 
