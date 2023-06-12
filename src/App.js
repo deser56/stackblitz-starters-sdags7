@@ -45,6 +45,17 @@ const StyledCard = styled(Card)({
   boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
   borderRadius: '16px',
   width: '100%',
+  height: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+const CardContentWrapper = styled(CardContent)({
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
 
 const theme = createTheme();
@@ -113,36 +124,36 @@ const App = () => {
       </Menu>
 
       <StyledContainer>
-        <Stack spacing={4} sx={{ width: '100%' }}>
-          <ConnectWallet />
-          <Typography variant="h4" gutterBottom>
-            NFT Preview
-          </Typography>
-          <StyledCard>
-            <CardMedia
-              component="img"
-              height="200"
-              image={cardImage}
-              alt="NFT Preview"
-              style={{ borderRadius: '16px 16px 0 0', objectFit: 'cover', width: '100%' }}
-            />
-            <CardContent>
-              <Typography variant="body1">nftz</Typography>
-            </CardContent>
-          </StyledCard>
+        <ConnectWallet />
+        <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
+          NFT Preview
+        </Typography>
+        <StyledCard>
+          <CardMedia
+            component="img"
+            image={cardImage}
+            alt="NFT Preview"
+            style={{ borderRadius: '16px 16px 0 0', objectFit: 'cover' }}
+          />
+          <CardContentWrapper>
+            <Typography variant="body1" sx={{ textAlign: 'center' }}>
+              nft preview
+            </Typography>
+          </CardContentWrapper>
+        </StyledCard>
 
-          <Typography variant="h4" gutterBottom>
-            Mint NFTs
-          </Typography>
-          <NFTMintComponent />
+        <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
+          Mint NFTs
+        </Typography>
+        <NFTMintComponent />
 
-         
-        </Stack>
+        
       </StyledContainer>
     </ThemeProvider>
   );
 };
 
 export default App;
+
 
 
