@@ -38,7 +38,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
   justifyContent: 'center', // Center the components horizontally
   [theme.breakpoints.up('md')]: {
     margin: '0 auto', // Center the container horizontally on larger screens
-    maxWidth: '10000px', // Limit the width of the container on larger screens
+    maxWidth: '960px', // Limit the width of the container on larger screens
   },
 }));
 
@@ -108,7 +108,13 @@ const App = () => {
       </Menu>
 
       <StyledContainer>
-        <Stack spacing={4} sx={{ width: '100%' }}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          width="100%"
+        >
           <ConnectWallet />
           <Typography variant="h4" gutterBottom>
             NFT Preview
@@ -131,7 +137,10 @@ const App = () => {
           </Typography>
           <NFTMintComponent />
 
-        </Stack>
+          <Button variant="contained" onClick={handleMintButtonClick} sx={{ mt: 2 }}>
+            Mint {numNFTs} NFT(s)
+          </Button>
+        </Box>
       </StyledContainer>
     </ThemeProvider>
   );
