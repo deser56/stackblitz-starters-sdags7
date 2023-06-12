@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { AppConfig, UserSession, showConnect } from '@stacks/connect';
+import { AppConfig, UserSession, showConnect,openContractCall } from '@stacks/connect';
 import { Storage } from '@stacks/storage';
-import { openContractCall, stringAsciiCV, stringUtf8CV } from '@stacks/transactions';
+import { stringAsciiCV, stringUtf8CV } from '@stacks/transactions';
 import { Button, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import { userSession } from './connect';
