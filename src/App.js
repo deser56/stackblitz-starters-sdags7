@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Typography,
   TextField,
@@ -44,6 +44,7 @@ const StyledCard = styled(Card)({
   background: gradientLight,
   boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
   borderRadius: '16px',
+  width: '100%',
 });
 
 const theme = createTheme();
@@ -51,6 +52,8 @@ const theme = createTheme();
 const App = () => {
   const [numNFTs, setNumNFTs] = useState(1);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [cardImage, setCardImage] = useState('');
+
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleNumNFTsChange = (event) => {
@@ -70,6 +73,17 @@ const App = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    // Fetch a random forest image from Unsplash API
+    fetch('https://source.unsplash.com/featured/?forest')
+      .then((response) => {
+        setCardImage(response.url);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -93,46 +107,36 @@ const App = () => {
         </Toolbar>
       </AppBar>
 
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-      >
+      <Menu id="menu-appbar" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
       </Menu>
 
       <StyledContainer>
-        <Stack spacing={4} sx={{ width: '100%', alignItems: 'center' }}>
+        <Stack spacing={4} sx={{ width: '100%' }}>
           <ConnectWallet />
+          <Typography variant="h4" gutterBottom>
+            NFT Preview
+          </Typography>
+          <StyledCard>
+            <CardMedia
+              component="img"
+              height="200"
+              image={cardImage}
+              alt="NFT Preview"
+              style={{ borderRadius: '16px 16px 0 0', objectFit: 'cover', width: '100%' }}
+            />
+            <CardContent>
+              <Typography variant="body1">nftz</Typography>
+            </CardContent>
+          </StyledCard>
 
-          <Stack spacing={4} alignItems="center">
-            <Typography variant="h4" gutterBottom>
-              NFT Preview
-            </Typography>
-            <Box sx={{ width: '100%' }}>
-              <StyledCard>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image="path/to/nft-preview-image.jpg"
-                  alt="NFT Preview"
-                  style={{ borderRadius: '16px 16px 0 0', objectFit: 'cover' }}
-                />
-                <CardContent>
-                  <Typography variant="body1">nftz</Typography>
-                </CardContent>
-              </StyledCard>
-            </Box>
+          <Typography variant="h4" gutterBottom>
+            Mint NFTs
+          </Typography>
+          <NFTMintComponent />
 
-            <Typography variant="h4" gutterBottom>
-              Mint NFTs
-            </Typography>
-            <NFTMintComponent />
-
-            
-          </Stack>
+         
         </Stack>
       </StyledContainer>
     </ThemeProvider>
