@@ -13,9 +13,8 @@ import {
   MenuItem,
   Avatar,
   Stack,
-  Box,
 } from '@mui/material';
-import { styled } from '@mui/system';
+import { styled, createTheme, ThemeProvider, useMediaQuery } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ConnectWallet from './connect';
 import NFTMintComponent from './mintf';
@@ -40,6 +39,7 @@ const StyledCard = styled(Card)({
   marginBottom: 16,
   background: gradientLight,
   boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
+  borderRadius: '16px',
 });
 
 const StyledButton = styled(Button)({
@@ -48,10 +48,26 @@ const StyledButton = styled(Button)({
   '&:hover': {
     background: gradientLight,
   },
+  borderRadius: '24px',
+  padding: '12px 24px',
+  textTransform: 'capitalize',
 });
 
 const StyledAppBar = styled(AppBar)({
   backgroundColor: primaryColor,
+  boxShadow: 'none',
+});
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
 });
 
 const App = () => {
@@ -76,63 +92,70 @@ const App = () => {
     setAnchorEl(null);
   };
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
-    <Stack direction="column" height="100vh">
-      <StyledAppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={handleMenuOpen}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            jungleking
-          </Typography>
-          <IconButton color="inherit">
-            <Avatar alt="User Avatar" src="path/to/avatar.jpg" />
-          </IconButton>
-        </Toolbar>
-      </StyledAppBar>
+    <ThemeProvider theme={theme}>
+      <Stack direction="column" minHeight="100vh">
+        <StyledAppBar position="static">
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+              onClick={handleMenuOpen}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              jungleking
+            </Typography>
+            <IconButton color="inherit">
+              <Avatar alt="User Avatar" src="path/to/avatar.jpg" />
+            </IconButton>
+          </Toolbar>
+        </StyledAppBar>
 
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-      >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-      </Menu>
-       
-      <StyledContainer>
-        <Stack spacing={4}>
-          <ConnectWallet/>
-          <Typography variant="h4" gutterBottom>
-            NFT Preview
-          </Typography>
-          <StyledCard>
-            <CardMedia
-              component="img"
-              height="200"
-              image="path/to/nft-preview-image.jpg"
-              alt="NFT Preview"
-            />
-            <CardContent>
-              <Typography variant="body1">nftz</Typography>
-            </CardContent>
-          </StyledCard>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+        </Menu>
 
-          <Typography variant="h4" gutterBottom>
-            Mint NFTs
-          </Typography>
-          <NFTMintComponent />
-        </Stack>
-      </StyledContainer>
-    </Stack>
+        <StyledContainer>
+          <Stack spacing={4}>
+            <ConnectWallet />
+            <Typography variant="h4" gutterBottom>
+              NFT Preview
+            </Typography>
+            <StyledCard>
+              <CardMedia
+                component="img"
+                height="200"
+                image="path/to/nft-preview-image.jpg"
+                alt="NFT Preview"
+                style={{ borderRadius: '16px 16px 0 0' }}
+              />
+              <CardContent>
+                <Typography variant="body1">nftz</Typography>
+              </CardContent>
+            </StyledCard>
+
+            <Typography variant="h4" gutterBottom>
+              Mint NFTs
+            </Typography>
+            <NFTMintComponent />
+
+            
+          </Stack>
+        </StyledContainer>
+      </Stack>
+    </ThemeProvider>
   );
 };
 
