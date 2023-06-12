@@ -96,7 +96,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Stack direction="column" minHeight="100vh">
+      <Stack direction="column" height={isMobile ? "100%" : "100vh"}>
         <StyledAppBar position="static">
           <Toolbar>
             <IconButton
@@ -151,7 +151,7 @@ const App = () => {
             </Typography>
             <NFTMintComponent />
 
-            
+           
           </Stack>
         </StyledContainer>
       </Stack>
