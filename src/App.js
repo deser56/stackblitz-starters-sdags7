@@ -40,7 +40,6 @@ const StyledContainer = styled('div')({
 });
 
 const StyledCard = styled(Card)({
-  maxWidth: 400,
   marginBottom: 16,
   background: gradientLight,
   boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
@@ -105,30 +104,35 @@ const App = () => {
       </Menu>
 
       <StyledContainer>
-        <Stack spacing={4} sx={{ width: '100%' }}>
+        <Stack spacing={4} sx={{ width: '100%', alignItems: 'center' }}>
           <ConnectWallet />
-          <Typography variant="h4" gutterBottom>
-            NFT Preview
-          </Typography>
-          <StyledCard>
-            <CardMedia
-              component="img"
-              height="200"
-              image="path/to/nft-preview-image.jpg"
-              alt="NFT Preview"
-              style={{ borderRadius: '16px 16px 0 0' }}
-            />
-            <CardContent>
-              <Typography variant="body1">nftz</Typography>
-            </CardContent>
-          </StyledCard>
 
-          <Typography variant="h4" gutterBottom>
-            Mint NFTs
-          </Typography>
-          <NFTMintComponent />
+          <Stack spacing={4} alignItems="center">
+            <Typography variant="h4" gutterBottom>
+              NFT Preview
+            </Typography>
+            <Box sx={{ width: '100%' }}>
+              <StyledCard>
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image="path/to/nft-preview-image.jpg"
+                  alt="NFT Preview"
+                  style={{ borderRadius: '16px 16px 0 0', objectFit: 'cover' }}
+                />
+                <CardContent>
+                  <Typography variant="body1">nftz</Typography>
+                </CardContent>
+              </StyledCard>
+            </Box>
 
-         
+            <Typography variant="h4" gutterBottom>
+              Mint NFTs
+            </Typography>
+            <NFTMintComponent />
+
+            
+          </Stack>
         </Stack>
       </StyledContainer>
     </ThemeProvider>
