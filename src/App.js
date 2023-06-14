@@ -16,6 +16,7 @@ import {
   createTheme,
   ThemeProvider,
   useMediaQuery,
+  CssBaseline,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -29,7 +30,6 @@ const gradientLight = `linear-gradient(to bottom right, ${primaryColor}, #C5E1A5
 const StyledContainer = styled('div')({
   backgroundColor: '#f7f7f7',
   padding: '24px',
-  minHeight: '100vh',
 });
 
 const StyledCard = styled(Card)({
@@ -57,6 +57,8 @@ const theme = createTheme({
       styleOverrides: {
         body: {
           margin: 0,
+          padding: 0,
+          overflowX: 'hidden',
         },
       },
     },
@@ -98,6 +100,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <AppBar position="static" sx={{ boxShadow: 'none', backgroundColor: primaryColor }}>
         <Toolbar>
           <IconButton
