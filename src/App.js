@@ -48,14 +48,22 @@ const StyledCard = styled(Card)({
   height: 'auto',
   display: 'flex',
   flexDirection: 'column',
+  position: 'relative',
 });
 
-const CardContentWrapper = styled(CardContent)({
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
+const CardImage = styled(CardMedia)({
+  height: '200px',
+  borderRadius: '16px 16px 0 0',
+});
+
+const Overlay = styled('div')({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  background: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2))`,
+  borderRadius: '16px',
 });
 
 const theme = createTheme();
@@ -87,7 +95,7 @@ const App = () => {
 
   useEffect(() => {
     // Fetch a random forest image from Unsplash API
-    fetch('https://source.unsplash.com/featured/?forest')
+    fetch('https://i.ibb.co/3BtCzTG/Whats-App-Image-2023-06-13-at-16-03-13.jpg')
       .then((response) => {
         setCardImage(response.url);
       })
@@ -129,17 +137,13 @@ const App = () => {
           NFT Preview
         </Typography>
         <StyledCard>
-          <CardMedia
-            component="img"
-            image={cardImage}
-            alt="NFT Preview"
-            style={{ borderRadius: '16px 16px 0 0', objectFit: 'cover' }}
-          />
-          <CardContentWrapper>
-            <Typography variant="body1" sx={{ textAlign: 'center' }}>
-              nft preview
+          <CardImage component="img" image={cardImage} alt="NFT Preview" />
+          <Overlay />
+          <CardContent sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="body1" sx={{ textAlign: 'center', color: 'white' }}>
+              our roadmap
             </Typography>
-          </CardContentWrapper>
+          </CardContent>
         </StyledCard>
 
         <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
@@ -154,6 +158,8 @@ const App = () => {
 };
 
 export default App;
+
+
 
 
 
