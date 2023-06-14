@@ -131,7 +131,7 @@ const App = () => {
         </Typography>
         <GeneratedArtGrid />
 
-        <Box sx={{ mb: 4 }}> {/* Add margin-bottom to create space */}
+        <Box sx={{ mt: 4 }}> {/* Add margin-bottom to create space */}
           <StyledCard>
             <CardMedia
               component="img"
