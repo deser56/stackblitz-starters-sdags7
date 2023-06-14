@@ -12,7 +12,6 @@ import {
   Menu,
   MenuItem,
   Avatar,
-  Stack,
   Box,
   createTheme,
   ThemeProvider,
@@ -22,26 +21,19 @@ import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
 import ConnectWallet from './connect';
 import NFTMintComponent from './mintf';
-import GeneratedArtGrid from './preview.js'
+import GeneratedArtGrid from './preview.js';
 
-// Define the primary color and gradients
 const primaryColor = '#8BC34A';
 const gradientLight = `linear-gradient(to bottom right, ${primaryColor}, #C5E1A5)`;
-const gradientDark = `linear-gradient(to bottom right, #558B2F, ${primaryColor})`;
 
-// Styled components for customized styling
 const StyledContainer = styled('div')({
   backgroundColor: '#f7f7f7',
   padding: '24px',
   minHeight: '100vh',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
 });
 
 const StyledCard = styled(Card)({
-  marginBottom: 16,
+  marginBottom: '16px',
   background: gradientLight,
   boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
   borderRadius: '16px',
@@ -59,7 +51,17 @@ const CardContentWrapper = styled(CardContent)({
   alignItems: 'center',
 });
 
-const theme = createTheme();
+const theme = createTheme({
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          margin: 0,
+        },
+      },
+    },
+  },
+});
 
 const App = () => {
   const [numNFTs, setNumNFTs] = useState(1);
@@ -73,8 +75,6 @@ const App = () => {
   };
 
   const handleMintButtonClick = () => {
-    // Logic for minting the NFTs
-    // You can implement the minting functionality here
     console.log(`Minting ${numNFTs} NFT(s)...`);
   };
 
@@ -87,7 +87,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    // Fetch a random forest image from Unsplash API
     fetch('https://i.ibb.co/3BtCzTG/Whats-App-Image-2023-06-13-at-16-03-13.jpg')
       .then((response) => {
         setCardImage(response.url);
@@ -131,7 +130,7 @@ const App = () => {
         </Typography>
         <GeneratedArtGrid />
 
-        <Box sx={{ mt: 4 }}> {/* Add margin-bottom to create space */}
+        <Box sx={{ mt: 4 }}>
           <StyledCard>
             <CardMedia
               component="img"
@@ -157,6 +156,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 
