@@ -127,7 +127,9 @@ const App = () => {
       </Menu>
 
       <StyledContainer>
-        <ConnectWallet />
+           <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+          <ConnectWallet />
+        </Box>
         <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
           NFT Preview
         </Typography>
@@ -152,7 +154,9 @@ const App = () => {
         <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
           Mint NFTs
         </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <NFTMintComponent />
+          </Box>
       </StyledContainer>
     </ThemeProvider>
   );
