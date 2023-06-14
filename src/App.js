@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Typography,
   TextField,
@@ -29,44 +29,33 @@ const gradientLight = `linear-gradient(to bottom right, ${primaryColor}, #C5E1A5
 const gradientDark = `linear-gradient(to bottom right, #558B2F, ${primaryColor})`;
 
 // Styled components for customized styling
-const StyledContainer = styled('div')(({ theme }) => ({
+const StyledContainer = styled('div')({
   backgroundColor: '#f7f7f7',
   padding: '24px',
   minHeight: '100vh',
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center', // Center the components vertically
-  justifyContent: 'center', // Center the components horizontally
-  [theme.breakpoints.up('md')]: {
-    margin: '0 auto', // Center the container horizontally on larger screens
-    maxWidth: '960px', // Limit the width of the container on larger screens
-  },
-}));
+  alignItems: 'center',
+  justifyContent: 'center',
+});
 
 const StyledCard = styled(Card)({
-  maxWidth: 400,
   marginBottom: 16,
   background: gradientLight,
   boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
   borderRadius: '16px',
-});
-
-const CardImage = styled(CardMedia)({
-  position: 'relative',
-  '& img': {
-    objectFit: 'cover',
-    width: '100%',
-    height: '100%',
-  },
-});
-
-const CardOverlay = styled('div')({
-  position: 'relative',
-  top: 0,
-  left: 0,
   width: '100%',
-  height: '100%',
-  background: 'rgba(0, 0, 0, 0.3)',
+  height: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+const CardContentWrapper = styled(CardContent)({
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
 
 const theme = createTheme();
@@ -74,6 +63,8 @@ const theme = createTheme();
 const App = () => {
   const [numNFTs, setNumNFTs] = useState(1);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [cardImage, setCardImage] = useState('');
+
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleNumNFTsChange = (event) => {
@@ -93,6 +84,17 @@ const App = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    // Fetch a random forest image from Unsplash API
+    fetch('https://i.ibb.co/3BtCzTG/Whats-App-Image-2023-06-13-at-16-03-13.jpg')
+      .then((response) => {
+        setCardImage(response.url);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -116,51 +118,43 @@ const App = () => {
         </Toolbar>
       </AppBar>
 
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-      >
+      <Menu id="menu-appbar" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
       </Menu>
 
       <StyledContainer>
-        <Stack spacing={4} sx={{ width: '100%', maxWidth: '600px' }}>
-          <ConnectWallet />
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h4" gutterBottom>
-              NFT Preview
+        <ConnectWallet />
+        <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
+          NFT Preview
+        </Typography>
+        <StyledCard>
+          <CardMedia
+            component="img"
+            image={cardImage}
+            alt="NFT Preview"
+            style={{ borderRadius: '16px 16px 0 0', objectFit: 'cover' }}
+          />
+          <CardContentWrapper>
+            <Typography variant="body1" sx={{ textAlign: 'center' }}>
+              Our RoadMap
             </Typography>
-          </Box>
-          <StyledCard>
-            <CardImage
-              component="img"
-              image="https://i.ibb.co/3BtCzTG/Whats-App-Image-2023-06-13-at-16-03-13.jpg"
-              alt="NFT Preview"
-            />
-            <CardOverlay />
-            <CardContent>
-              <Typography variant="body1"> Our RoadMap</Typography>
-            </CardContent>
-          </StyledCard>
+          </CardContentWrapper>
+        </StyledCard>
 
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h4" gutterBottom>
-              Mint NFTs
-            </Typography>
-          </Box>
-          <NFTMintComponent />
+        <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
+          Mint NFTs
+        </Typography>
+        <NFTMintComponent />
 
         
-        </Stack>
       </StyledContainer>
     </ThemeProvider>
   );
 };
 
 export default App;
+
 
 
 
