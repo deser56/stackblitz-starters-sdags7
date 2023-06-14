@@ -22,6 +22,7 @@ import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
 import ConnectWallet from './connect';
 import NFTMintComponent from './mintf';
+import GeneratedArtGrid from './preview.js'
 
 // Define the primary color and gradients
 const primaryColor = '#8BC34A';
@@ -128,32 +129,35 @@ const App = () => {
         <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
           NFT Preview
         </Typography>
-        <StyledCard>
-          <CardMedia
-            component="img"
-            image={cardImage}
-            alt="NFT Preview"
-            style={{ borderRadius: '16px 16px 0 0', objectFit: 'cover' }}
-          />
-          <CardContentWrapper>
-            <Typography variant="body1" sx={{ textAlign: 'center' }}>
-              Our RoadMap
-            </Typography>
-          </CardContentWrapper>
-        </StyledCard>
+        <GeneratedArtGrid />
+
+        <Box sx={{ mb: 4 }}> {/* Add margin-bottom to create space */}
+          <StyledCard>
+            <CardMedia
+              component="img"
+              image={cardImage}
+              alt="NFT Preview"
+              style={{ borderRadius: '16px 16px 0 0', objectFit: 'cover' }}
+            />
+            <CardContentWrapper>
+              <Typography variant="body1" sx={{ textAlign: 'center' }}>
+                Our RoadMap
+              </Typography>
+            </CardContentWrapper>
+          </StyledCard>
+        </Box>
 
         <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
           Mint NFTs
         </Typography>
         <NFTMintComponent />
-
-        
       </StyledContainer>
     </ThemeProvider>
   );
 };
 
 export default App;
+
 
 
 
