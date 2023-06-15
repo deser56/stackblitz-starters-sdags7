@@ -137,7 +137,7 @@ const App = () => {
         </Box>
 
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-         {isWalletConnected ? ( <Paywithpixe />) : null }
+          <Paywithpixe />
         </Box>
 
         <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
