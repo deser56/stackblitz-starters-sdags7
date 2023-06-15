@@ -9,7 +9,7 @@ export const userSession = new UserSession({ appConfig });
 
 const StyledConnectButton = styled(Button)({
   background: '#8BC34A',
-  color: '#fff',
+  color: '#fff', 
   '&:hover': {
     background: '#C5E1A5',
   },
