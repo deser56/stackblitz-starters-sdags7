@@ -1,6 +1,7 @@
 import Button from '@material-ui/core/Button';
 import styled from '@emotion/styled';
 import { isWalletConnected } from './ethereumm';
+import Web3 from 'web3';
 
 const GreenButton = styled(Button)({
   background: 'linear-gradient(45deg, #2E7D32 30%, #388E3C 90%)',
