@@ -49,8 +49,6 @@ function Paywithpixe() {
         pay with ($pixe)
       </GreenButton>
     );
-  } else {
-    return null;
   }
   
   
