@@ -133,10 +133,10 @@ const App = () => {
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
       <Stack direction="row" spacing={2}>
         <ConnectWallet />
-      
+        
       </Stack>
     </Box>
-    <EthereumButton />
+   
   {/*  <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
       <Paywithpixe/>
       </Box>  */ }
