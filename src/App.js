@@ -134,7 +134,7 @@ const App = () => {
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
       <Stack direction="row" spacing={2}>
         <ConnectWallet />
-        
+        <EthereumButton />
       </Stack>
     </Box>
    
