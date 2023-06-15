@@ -133,12 +133,12 @@ const App = () => {
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
       <Stack direction="row" spacing={2}>
         <ConnectWallet />
-        <EthereumButton /> 
+        <EthereumButton />
       </Stack>
     </Box>
-    {/* <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+  {/*  <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
       <Paywithpixe/>
-  </Box> */}
+      </Box>  */ }
         <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
           NFT Preview
         </Typography>
@@ -172,13 +172,6 @@ const App = () => {
 };
 
 export default App;
-
-
-
-
-
-
-
 
 
 
