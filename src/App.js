@@ -17,12 +17,15 @@ import {
   ThemeProvider,
   useMediaQuery,
   CssBaseline,
+  Stack
 } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
 import ConnectWallet from './connect';
 import NFTMintComponent from './mintf';
-import GeneratedArtGrid from './preview.js';
+import GeneratedArtGrid from './preview';
+import EthereumButton from './ethereumm'
+import Paywithpixe from './paywithpixe'
 
 const primaryColor = '#8BC34A';
 const gradientLight = `linear-gradient(to bottom right, ${primaryColor}, #C5E1A5)`;
@@ -127,9 +130,15 @@ const App = () => {
       </Menu>
 
       <StyledContainer>
-           <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-          <ConnectWallet />
-        </Box>
+      <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+      <Stack direction="row" spacing={2}>
+        <ConnectWallet />
+        <EthereumButton />
+      </Stack>
+    </Box>
+    <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+      <Paywithpixe/>
+      </Box>
         <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
           NFT Preview
         </Typography>
