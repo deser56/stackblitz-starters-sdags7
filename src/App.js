@@ -24,7 +24,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ConnectWallet from './connect';
 import NFTMintComponent from './mintf';
 import GeneratedArtGrid from './preview';
-import EthereumButton from './ethy';
+// import EthereumButton from './ethy';
 // import Paywithpixe from './paywithpixe'
 
 const primaryColor = '#8BC34A';
@@ -133,7 +133,7 @@ const App = () => {
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
       <Stack direction="row" spacing={2}>
         <ConnectWallet />
-        <EthereumButton />
+        
       </Stack>
     </Box>
    
