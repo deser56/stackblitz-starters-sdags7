@@ -82,9 +82,9 @@ function EthereumButton() {
     setIsModalOpen(false);
   };
   
-/*  useEffect(() => {
+  useEffect(() => {
     // Check if Ethereum wallet provider exists
-    if (!window.ethereum) {
+    if (!window?.ethereum) {
       // Ethereum wallet provider is not installed
       console.error('No Ethereum wallet provider found.');
       // Display a modal or popup with instructions for installing a wallet
@@ -95,11 +95,11 @@ function EthereumButton() {
       window.web3 = new Web3(window.ethereum);
       //setIsWalletConnected(true);
     }
-  }, []); */
+  }, []); 
 
   const handleSignIn = async () => {
     try {
-      const accounts = await window.web3.eth.requestAccounts();
+      const accounts = await window?.web3?.eth.requestAccounts();
       console.log('Signed in with Ethereum wallet:', accounts[0]);
       handleCloseModal();
       // Perform any necessary actions after signing in
@@ -113,7 +113,7 @@ function EthereumButton() {
   };
   
   const conn = () => {
-     if(window.ethereum){
+     if(window?.ethereum){
 
       handleSignIn();
       return;
