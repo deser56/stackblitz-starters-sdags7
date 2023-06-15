@@ -65,13 +65,15 @@ const CardContainer = styled('div')({
 });
 
 
+export let isWalletConnected = false; // Export the variable
+
 
 function EthereumButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  //const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [WalletExists,setWalletExists]=useState(false);
-
   
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -101,7 +103,9 @@ function EthereumButton() {
       console.log('Signed in with Ethereum wallet:', accounts[0]);
       handleCloseModal();
       // Perform any necessary actions after signing in
-      setIsWalletConnected(true);
+      isWalletConnected = true; 
+     // setIsWalletConnected(true);
+      
     } catch (error) {
       console.error('Error signing in with Ethereum wallet:', error);
       // Handle error
@@ -110,6 +114,7 @@ function EthereumButton() {
   
   const conn = () => {
      if(window.ethereum){
+
       handleSignIn();
       return;
      }
@@ -117,7 +122,9 @@ function EthereumButton() {
   };
 
   const handleDisconnect = () => {
-    setIsWalletConnected(false);
+    
+    isWalletConnected = false; 
+   // setIsWalletConnected(false);
   };
 
   const displayCustomModal = () => {
@@ -177,7 +184,8 @@ function EthereumButton() {
 
 
 
-export { isWalletConnected };
+
+
 export default EthereumButton;
 
 

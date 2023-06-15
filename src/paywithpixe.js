@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import styled from '@emotion/styled';
-import { isWalletConnected } from './ethereumm';
+import {  isWalletConnected } from './ethereumm';
 import Web3 from 'web3';
 
 const GreenButton = styled(Button)({
@@ -43,7 +43,7 @@ function Paywithpixe() {
     }
   };
 
-  if (isWalletConnected) {
+  if ( isWalletConnected) {
     return (
       <GreenButton variant="contained" onClick={handlePay}>
         pay with ($pixe)
