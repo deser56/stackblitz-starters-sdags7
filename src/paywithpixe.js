@@ -44,6 +44,7 @@ function Paywithpixe() {
   };
 
   if ( isWalletConnected ) {
+    console.log(isWalletConnected)
     return (
       <GreenButton variant="contained" onClick={handlePay}>
         pay with ($pixe)
