@@ -129,7 +129,7 @@ const App = () => {
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
       </Menu>
-      <EthereumButton/>
+      
       <StyledContainer>
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
       <Stack direction="row" spacing={2}>
