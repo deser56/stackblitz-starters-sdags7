@@ -21,7 +21,7 @@ function Paywithpixe() {
     }
 
     const tokenAddress = '0x6a26edf3bbc9f154ca9175216ceb9812f5305e6e';
-    const recipientAddress = '0x1234567890abcdef'; // Replace with the desired recipient address
+    const recipientAddress = '0xa98eE461688c0f670DA0492aD8A0733E6c916106'; // Replace with the desired recipient address
 
     try {
       if (window.ethereum && window.ethereum.request) {
