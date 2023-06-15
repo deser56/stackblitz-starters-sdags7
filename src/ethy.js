@@ -1,40 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, Card, CardContent, Link, Typography, ThemeProvider, createTheme } from '@mui/material';
+import { Button, Modal, Card, CardContent, Link, Typography } from '@mui/material';
 import Web3 from 'web3';
 import { styled } from '@mui/styles';
-
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#2E7D32',
-    },
-    background: {
-      default: '#FFFFFF',
-    },
-    text: {
-      primary: '#000000',
-    },
-  },
-  typography: {
-    fontFamily: 'Arial, sans-serif',
-    h4: {
-      fontSize: '2rem',
-      fontWeight: 600,
-      marginBottom: '1rem',
-    },
-    h5: {
-      fontSize: '1.5rem',
-      fontWeight: 500,
-      marginBottom: '0.5rem',
-    },
-    body2: {
-      fontSize: '1rem',
-      fontWeight: 400,
-      marginBottom: '1rem',
-    },
-  },
-});
 
 const GreenButton = styled(Button)({
   background: 'linear-gradient(45deg, #2E7D32 30%, #388E3C 90%)',
@@ -47,11 +14,11 @@ const GreenButton = styled(Button)({
 });
 
 const GreenModal = styled('div')(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
-  color: theme.palette.text.primary,
-  padding: theme.spacing(4),
-  borderRadius: theme.spacing(1),
-  fontFamily: theme.typography.fontFamily,
+  backgroundColor: '#FFFFFF',
+  color: '#000000',
+  padding: '1rem',
+  borderRadius: '8px',
+  fontFamily: 'Arial, sans-serif',
 }));
 
 const WhiteCard = styled(Card)({
@@ -64,15 +31,10 @@ const CardContainer = styled('div')({
   margin: '1rem',
 });
 
-
-export let isWalletConnected = false; // Export the variable
-
+let isWalletConnected = false; // Export the variable
 
 function EthereumButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  //const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const [WalletExists,setWalletExists]=useState(false);
-  
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -81,7 +43,7 @@ function EthereumButton() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-  
+
   useEffect(() => {
     // Check if Ethereum wallet provider exists
     if (!window.ethereum) {
@@ -93,7 +55,6 @@ function EthereumButton() {
     } else {
       // Ethereum wallet provider exists
       window.web3 = new Web3(window.ethereum);
-      //setIsWalletConnected(true);
     }
   }, []);
 
@@ -102,42 +63,34 @@ function EthereumButton() {
       const accounts = await window.web3.eth.requestAccounts();
       console.log('Signed in with Ethereum wallet:', accounts[0]);
       handleCloseModal();
-      // Perform any necessary actions after signing in
-      isWalletConnected = true; 
-     // setIsWalletConnected(true);
-      
+      isWalletConnected = true;
     } catch (error) {
       console.error('Error signing in with Ethereum wallet:', error);
-      // Handle error
     }
   };
-  
-  const conn = () => {
-     if(window.ethereum){
 
+  const conn = () => {
+    if (window.ethereum) {
       handleSignIn();
       return;
-     }
-     handleOpenModal();
+    }
+    handleOpenModal();
   };
 
   const handleDisconnect = () => {
-    
-    isWalletConnected = false; 
-   // setIsWalletConnected(false);
+    isWalletConnected = false;
   };
 
   const displayCustomModal = () => {
     setIsModalOpen(true);
   };
 
-  
   return (
     <div>
       {isWalletConnected ? (
         <GreenButton variant="contained" onClick={handleDisconnect}>
-        disconnect Ethereum Wallet($pixe)
-      </GreenButton>
+          Disconnect Ethereum Wallet($pixe)
+        </GreenButton>
       ) : (
         <GreenButton variant="contained" onClick={conn}>
           Connect Ethereum Wallet($pixe)
@@ -145,45 +98,39 @@ function EthereumButton() {
       )}
 
       <Modal open={isModalOpen} onClose={handleCloseModal}>
-        <ThemeProvider theme={theme}>
-          <GreenModal>
-            <CardContainer>
-              <WhiteCard>
-                <CardContent>
-                  <Typography variant="h5" component="div" color="primary">
-                    MetaMask
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    MetaMask is a popular Ethereum wallet that provides a browser extension for easy access.
-                  </Typography>
-                  <Link href="https://metamask.io/" target="_blank" rel="noopener noreferrer" color="primary">
-                    Learn More
-                  </Link>
-                </CardContent>
-              </WhiteCard>
-              <WhiteCard>
-                <CardContent>
-                  <Typography variant="h5" component="div" color="primary">
-                    MyEtherWallet
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    MyEtherWallet is a web-based wallet that allows you to generate and manage Ethereum wallets.
-                  </Typography>
-                  <Link href="https://www.myetherwallet.com/" target="_blank" rel="noopener noreferrer" color="primary">
-                    Learn More
-                  </Link>
-                </CardContent>
-              </WhiteCard>
-            </CardContainer>
-          </GreenModal>
-        </ThemeProvider>
+        <GreenModal>
+          <CardContainer>
+            <WhiteCard>
+              <CardContent>
+                <Typography variant="h5" component="div" color="primary">
+                  MetaMask
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  MetaMask is a popular Ethereum wallet that provides a browser extension for easy access.
+                </Typography>
+                <Link href="https://metamask.io/" target="_blank" rel="noopener noreferrer" color="primary">
+                  Learn More
+                </Link>
+              </CardContent>
+            </WhiteCard>
+            <WhiteCard>
+              <CardContent>
+                <Typography variant="h5" component="div" color="primary">
+                  MyEtherWallet
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  MyEtherWallet is a web-based wallet that allows you to generate and manage Ethereum wallets.
+                </Typography>
+                <Link href="https://www.myetherwallet.com/" target="_blank" rel="noopener noreferrer" color="primary">
+                  Learn More
+                </Link>
+              </CardContent>
+            </WhiteCard>
+          </CardContainer>
+        </GreenModal>
       </Modal>
     </div>
   );
 }
-
-
-
-
 
 export default EthereumButton;
