@@ -43,11 +43,15 @@ function Paywithpixe() {
     }
   };
 
-  return isWalletConnected ? (
-    <GreenButton variant="contained" onClick={handlePay}>
-      pay with ($pixe)
-    </GreenButton>
-  ) : null;
+  if (isWalletConnected) {
+    return (
+      <GreenButton variant="contained" onClick={handlePay}>
+        pay with ($pixe)
+      </GreenButton>
+    );
+  } else {
+    return null;
+  }
   
   
 }
