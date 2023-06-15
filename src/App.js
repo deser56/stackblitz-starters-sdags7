@@ -23,7 +23,7 @@ import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
 import ConnectWallet from './connect';
 import GeneratedArtGrid from './preview';
-import EthereumButton from './ethy';
+import EthereumButton,{isWalletConnected} from './ethy';
 import Paywithpixe from './paywithpixe';
 
 const primaryColor = '#8BC34A';
@@ -137,7 +137,7 @@ const App = () => {
         </Box>
 
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-          <Paywithpixe />
+         {isWalletConnected ? ( <Paywithpixe />) : null }
         </Box>
 
         <Typography variant="h4" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>

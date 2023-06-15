@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
+import {Button} from '@mui/material';
 import styled from '@emotion/styled';
-import EthereumButton, { isWalletConnected } from './ethy';
+// import EthereumButton, { isWalletConnected } from './ethy';
 
 const GreenButton = styled(Button)({
   background: 'linear-gradient(45deg, #2E7D32 30%, #388E3C 90%)',
@@ -53,14 +53,11 @@ function Paywithpixe() {
   };
 
   return (
-    <>
-     
-      {isWalletConnected ? (
-        <GreenButton variant="contained" onClick={handlePay}>
+      
+      <GreenButton variant="contained" onClick={handlePay}>
           Pay with ($pixe)
         </GreenButton>
-      ): null }
-    </>
+     
   );
 }
 
