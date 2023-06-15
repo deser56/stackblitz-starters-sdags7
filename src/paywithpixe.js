@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import styled from '@emotion/styled';
 import { isWalletConnected } from './ethereumm';
@@ -42,11 +43,12 @@ function Paywithpixe() {
     }
   };
 
-  return isWalletConnected ? React.createElement(
-    GreenButton,
-    { variant: "contained", onClick: handlePay },
-    "pay with ($pixe)"
+  return isWalletConnected ? (
+    <GreenButton variant="contained" onClick={handlePay}>
+      pay with ($pixe)
+    </GreenButton>
   ) : null;
+  
   
 }
 
