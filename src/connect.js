@@ -51,12 +51,6 @@ const ConnectWallet = () => {
         <StyledDisconnectButton onClick={disconnect}>
           Disconnect Wallet
         </StyledDisconnectButton>
-        <Typography variant="body1" gutterBottom>
-          mainnet: {mainnetAddress}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          testnet: {testnetAddress}
-        </Typography>
       </div>
     );
   }
