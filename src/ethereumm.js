@@ -176,7 +176,8 @@ function EthereumButton() {
 }
 
 
-export { EthereumButton, isWalletConnected };
+
+export { isWalletConnected };
 export default EthereumButton;
 
 
