@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Web3 from 'web3';
 
 const styles = {
   button: {
@@ -39,7 +40,7 @@ function EthereumButton() {
 
   useEffect(() => {
     // Check if Ethereum wallet provider exists
-    if (!window.ethereum) {
+    if (!window?.ethereum) {
       // Ethereum wallet provider is not installed
       console.error('No Ethereum wallet provider found.');
       // Display a modal or popup with instructions for installing a wallet
@@ -65,7 +66,7 @@ function EthereumButton() {
   };
 
   const conn = () => {
-    if (window.ethereum) {
+    if (window?.ethereum) {
       handleSignIn();
     } else {
       console.error('No Ethereum wallet provider found.');
