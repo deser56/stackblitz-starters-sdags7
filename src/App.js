@@ -79,9 +79,9 @@ const App = () => {
   };
 
   const handleMintButtonClick = () => {
-    console.log(`Minting ${numNFTs} NFT(s)...`);
+    window.location.href = 'https://gamma.io';
   };
-
+  
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
