@@ -82,7 +82,7 @@ function EthereumButton() {
     setIsModalOpen(false);
   };
   
-  useEffect(() => {
+/*  useEffect(() => {
     // Check if Ethereum wallet provider exists
     if (!window.ethereum) {
       // Ethereum wallet provider is not installed
@@ -95,7 +95,7 @@ function EthereumButton() {
       window.web3 = new Web3(window.ethereum);
       //setIsWalletConnected(true);
     }
-  }, []);
+  }, []); */
 
   const handleSignIn = async () => {
     try {
