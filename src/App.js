@@ -24,7 +24,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ConnectWallet from './connect';
 import NFTMintComponent from './mintf';
 import GeneratedArtGrid from './preview';
-// import EthereumButton from './ethy';
+import EthereumButton from './ethy';
 // import Paywithpixe from './paywithpixe'
 
 const primaryColor = '#8BC34A';
@@ -102,6 +102,7 @@ const App = () => {
   }, []);
 
   return (
+   
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar position="static" sx={{ boxShadow: 'none', backgroundColor: primaryColor }}>
@@ -128,7 +129,7 @@ const App = () => {
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
       </Menu>
-
+      <EthereumButton/>
       <StyledContainer>
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
       <Stack direction="row" spacing={2}>
