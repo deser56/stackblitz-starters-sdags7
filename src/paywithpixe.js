@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Button} from '@mui/material';
+import {Button , Stack, TextField} from '@mui/material';
 import styled from '@emotion/styled';
 import EthereumButton, { isWalletConnected } from './ethy';
 
@@ -13,7 +13,27 @@ const GreenButton = styled(Button)({
   boxShadow: '0 3px 5px 2px rgba(0, 105, 10, .3)',
 });
 
+const StyledTextField = styled(TextField)({
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: '#8BC34A',
+    },
+    '&:hover fieldset': {
+      borderColor: '#8BC34A',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#8BC34A',
+    },
+  },
+  '& .MuiFormHelperText-root': {
+    color: '#8BC34A',
+  },
+});
+
+
 function Paywithpixe() {
+  const [stxAddress, setStxAddress] = useState('');
+
   const handlePay = async () => {
     if (!isWalletConnected) {
       console.error('Wallet is not connected.');
@@ -32,7 +52,7 @@ function Paywithpixe() {
         const transactionParameters = {
           from: fromAddress,
           to: tokenAddress,
-          value: '1000000000000000000', // 1 ETH token (in Wei)
+          value: '100000', // 1 ETH token (in Wei)
           data: `0x40c10f19${recipientAddress.slice(2)}`, // Function signature + recipient address
         };
 
@@ -51,14 +71,26 @@ function Paywithpixe() {
       // Handle error
     }
   };
-
+  const handleStxAddressChange = (event) => {
+    setStxAddress(event.target.value);
+  };
   return (
-      
-      <GreenButton variant="contained" onClick={handlePay}>
-          Pay with ($pixe)
-        </GreenButton>
-     
-  );
+    <Stack direction="row" spacing={2} alignItems="center">
+   <StyledTextField
+        label=" enter STX Address"
+        value={stxAddress}
+        onChange={handleStxAddressChange}
+        variant="outlined"
+        size="small"
+        sx={{ flex: 1 }}
+      />
+    <GreenButton variant="contained" onClick={handlePay}>
+      Pay with ($pixe)
+    </GreenButton>
+  </Stack>
+);
 }
+
+
 
 export default Paywithpixe;
