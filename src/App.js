@@ -25,6 +25,7 @@ import ConnectWallet from './connect';
 import GeneratedArtGrid from './preview';
 import EthereumButton,{isWalletConnected} from './ethy';
 import Paywithpixe from './paywithpixe';
+import LinksComponent from './links';
 
 const primaryColor = '#8BC34A';
 const gradientLight = `linear-gradient(to bottom right, ${primaryColor}, #C5E1A5)`;
@@ -179,6 +180,9 @@ const App = () => {
            Mint NFTs
           </Button>
          </Box>
+         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+           <LinksComponent />
+           </Box>
       </StyledContainer>
     </ThemeProvider>
   );
