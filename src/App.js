@@ -31,6 +31,10 @@ const primaryColor = '#8BC34A';
 const gradientLight = `linear-gradient(to bottom right, ${primaryColor}, #C5E1A5)`;
 
 const StyledContainer = styled('div')({
+  backgroundImage: 'url(https://i.ibb.co/Cs9W0H2/Jungle-King.jpg)',
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
   backgroundColor: '#f7f7f7',
   padding: '24px',
 });
@@ -80,7 +84,7 @@ const App = () => {
   };
 
   const handleMintButtonClick = () => {
-    window.location.href = 'https://gamma.io';
+    window.location.href = 'https://create.gamma.io/collection/jungle-king-ai';
   };
   
   const handleMenuOpen = (event) => {
