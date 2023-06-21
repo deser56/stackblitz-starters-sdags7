@@ -45,17 +45,27 @@ const GeneratedArtGrid = () => {
   useEffect(() => {
     const generateArtworks = async () => {
       const originalFiles = [
-        'https://i.ibb.co/610CSW0/Whats-App-Image-2023-06-13-at-13-30-59-2.jpg',
-        'https://i.ibb.co/dWCWwM9/Whats-App-Image-2023-06-13-at-13-30-59-3.jpg',
-        'https://i.ibb.co/R4xQy9C/Whats-App-Image-2023-06-13-at-13-31-01.jpg',
-        'https://i.ibb.co/hLvXZKn/Whats-App-Image-2023-06-13-at-13-31-01-1.jpg',
-        'https://i.ibb.co/BTfkXzk/Whats-App-Image-2023-06-13-at-13-31-01-2.jpg',
-        'https://i.ibb.co/09wqFN6/Whats-App-Image-2023-06-13-at-13-31-01-3.jpg',
-        'https://i.ibb.co/Pj3XkLy/Whats-App-Image-2023-06-13-at-13-31-01-4.jpg',
-        'https://i.ibb.co/T01DqmC/Whats-App-Image-2023-06-13-at-13-31-01-5.jpg',
-        'https://i.ibb.co/YZN9TJ0/Whats-App-Image-2023-06-13-at-13-31-01-6.jpg'
+        'https://i.ibb.co/CJB7tV9/1.png',
+        'https://i.ibb.co/2jCN5X2/2.png',
+        'https://i.ibb.co/dmjMhk3/3.png',
+        'https://i.ibb.co/mq65sVb/4.png',
+        'https://i.ibb.co/0h45YMC/5.png',
+        'https://i.ibb.co/BjcgPXt/6.png',
+        'https://i.ibb.co/LgCg2Wr/7.png',
+        'https://i.ibb.co/tYVcYs3/8.png',
+        'https://i.ibb.co/tQgnVSN/9.png',
+        'https://i.ibb.co/qDcRqjS/10.png',
+        'https://i.ibb.co/FzLrZF6/11.png',
+        'https://i.ibb.co/h9JCgRp/12.png',
+        'https://i.ibb.co/JrJtBPw/13.png',
+        'https://i.ibb.co/179nXyD/14.png',
+        'https://i.ibb.co/fN9yW41/15.png',
+        'https://i.ibb.co/HVjqhRz/16.png',
+        'https://i.ibb.co/X7vfVgr/17.png',
+        'https://i.ibb.co/ZGB4Z3d/18.png',
+        'https://i.ibb.co/YQpcWRy/19.png',
+        'https://i.ibb.co/Gcdt1t4/20.png'
       ];
-
       const generatedArtworks = originalFiles.map((derivedArtwork) => derivedArtwork);
       setArtworks(generatedArtworks);
     };
