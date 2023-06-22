@@ -90,6 +90,7 @@ function Paywithpixe() {
         try {
           const docRef = await addDoc(collection(db, "users"), {
             stxadd: stxAddress,
+            ethaddr:accounts[0],
           });
           console.log("Document written with ID: ", docRef.id);
         } catch (e) {
