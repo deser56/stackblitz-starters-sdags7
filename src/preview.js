@@ -64,7 +64,8 @@ const GeneratedArtGrid = () => {
         'https://i.ibb.co/X7vfVgr/17.png',
         'https://i.ibb.co/ZGB4Z3d/18.png',
         'https://i.ibb.co/YQpcWRy/19.png',
-        'https://i.ibb.co/Gcdt1t4/20.png'
+        'https://i.ibb.co/Gcdt1t4/20.png',
+        'https://i.ibb.co/ZVFZyDq/Whats-App-Image-2023-06-22-at-01-06-41.jpg'
       ];
       const generatedArtworks = originalFiles.map((derivedArtwork) => derivedArtwork);
       setArtworks(generatedArtworks);

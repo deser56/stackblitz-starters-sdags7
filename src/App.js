@@ -21,7 +21,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
-import ConnectWallet from './connect';
+// import ConnectWallet from './connect';
 import GeneratedArtGrid from './preview';
 import EthereumButton,{isWalletConnected} from './ethy';
 import Paywithpixe from './paywithpixe';
@@ -136,7 +136,6 @@ const App = () => {
       <StyledContainer>
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
           <Stack direction="row" spacing={2}>
-            <ConnectWallet />
             <EthereumButton />
           </Stack>
         </Box>

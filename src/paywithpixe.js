@@ -60,14 +60,7 @@ function Paywithpixe() {
   
 
   const handlePay = async () => {
-    try {
-      const docRef = await addDoc(collection(db, "users"), {
-        stxadd: stxAddress,
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
+   
     if (!isWalletConnected) {
       console.error('Wallet is not connected.');
       return;
@@ -94,6 +87,14 @@ function Paywithpixe() {
           params: [transactionParameters],
         });
         console.log('Payment sent:', result);
+        try {
+          const docRef = await addDoc(collection(db, "users"), {
+            stxadd: stxAddress,
+          });
+          console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
         // Handle payment success
       } else {
         console.error('Ethereum wallet provider not available.');
