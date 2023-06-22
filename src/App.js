@@ -30,11 +30,16 @@ import LinksComponent from './links';
 const primaryColor = '#8BC34A';
 const gradientLight = `linear-gradient(to bottom right, ${primaryColor}, #C5E1A5)`;
 
-const StyledContainer = styled('div')({
+{/*const StyledContainer = styled('div')({
   backgroundImage: 'url(https://i.ibb.co/Cs9W0H2/Jungle-King.jpg)',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
+  backgroundColor: '#f7f7f7',
+  padding: '24px',
+});*/}
+
+const StyledContainer = styled('div')({
   backgroundColor: '#f7f7f7',
   padding: '24px',
 });
@@ -132,8 +137,19 @@ const App = () => {
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
       </Menu>
+      
+      
 
       <StyledContainer>
+      <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+      <Typography variant="body2" color="textSecondary" align="center">
+      <span style={{ fontSize: '0.8rem' }}>Connect Wallet First</span>
+      <br />
+      <span style={{ fontSize: '0.8rem' }}>Before Pressing "Pay with Pixe"</span>
+      <br />
+      <span style={{ fontSize: '0.8rem' }}>for Successful Transaction</span>
+    </Typography>
+        </Box>
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
           <Stack direction="row" spacing={2}>
             <EthereumButton />
