@@ -196,7 +196,7 @@ const App = () => {
          },
          }}
          >
-           Mint In Stacks
+           Mint In Stacks 
           </Button>
          </Box>
          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
