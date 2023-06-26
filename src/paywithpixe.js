@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import {Button , Stack, TextField} from '@mui/material';
-import styled from '@emotion/styled';
-import EthereumButton, { isWalletConnected } from './ethy';
+import React ,  { useState } from 'react';
+import Web3 from 'web3';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore"; 
-
+import {Button , Stack, TextField} from '@mui/material';
+import styled from '@emotion/styled';
 
 
 const firebaseConfig = {
@@ -25,6 +24,354 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
+const tokenABI = [
+  // Paste the ABI of the token contract here
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "MintingNotAllowed",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Approval",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "MAX_SUPPLY",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      }
+    ],
+    "name": "allowance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "approve",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "burn",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "decimals",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "subtractedValue",
+        "type": "uint256"
+      }
+    ],
+    "name": "decreaseAllowance",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "addedValue",
+        "type": "uint256"
+      }
+    ],
+    "name": "increaseAllowance",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalSupply",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+    {
+      "internalType": "address",
+      "name": "to",
+      "type": "address"
+    },
+    {
+      "internalType": "uint256",
+      "name": "amount",
+      "type": "uint256"
+    }
+  ],
+  "name": "transfer",
+  "outputs": [
+    {
+      "internalType": "bool",
+      "name": "",
+      "type": "bool"
+    }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "function"
+},
+{
+  "inputs": [
+    {
+      "internalType": "address",
+      "name": "from",
+      "type": "address"
+    },
+    {
+      "internalType": "address",
+      "name": "to",
+      "type": "address"
+    },
+    {
+      "internalType": "uint256",
+      "name": "amount",
+      "type": "uint256"
+    }
+  ],
+  "name": "transferFrom",
+  "outputs": [
+    {
+      "internalType": "bool",
+      "name": "",
+      "type": "bool"
+    }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "function"
+}
+];
 
 const GreenButton = styled(Button)({
   background: 'linear-gradient(45deg, #2E7D32 30%, #388E3C 90%)',
@@ -54,78 +401,85 @@ const StyledTextField = styled(TextField)({
 });
 
 
-function Paywithpixe() {
-  const [stxAddress, setStxAddress] = useState('');
-  
-  
 
-  const handlePay = async () => {
-   
-    if (!isWalletConnected) {
-      console.error('Wallet is not connected.');
-      return;
+
+
+
+async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) {
+  try {
+    // Check if the user has a connected wallet
+    if (!window.ethereum) {
+      throw new Error('No Ethereum provider found. Please make sure you have a wallet installed.');
     }
 
-    const tokenAddress = '0x6a26edf3bbc9f154ca9175216ceb9812f5305e6e';
-    const recipientAddress = '0xa98eE461688c0f670DA0492aD8A0733E6c916106'; // Replace with the desired recipient address
+    const web3 = new Web3(window.ethereum);
+
+    // Request access to the user's accounts
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+    const accounts = await web3.eth.getAccounts();
+    const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
+
+    // Send the tokens with the specified gas price
+    const transaction = await tokenContract.methods.transfer(recipientAddress, amount).send({
+      from: accounts[0],
+      gasPrice: web3.utils.toWei(gasPrice, 'gwei')
+    });
+
+    console.log('Tokens sent successfully! Transaction hash:', transaction.transactionHash);
 
     try {
-      if (window.ethereum && window.ethereum.request) {
-        const accounts = await window.ethereum.request({
-          method: 'eth_requestAccounts',
-        });
-        const fromAddress = accounts[0];
-        const transactionParameters = {
-          from: fromAddress,
-          to: tokenAddress,
-          value: '100000', // 1 ETH token (in Wei)
-          data: `0x40c10f19${recipientAddress.slice(2)}`, // Function signature + recipient address
-        };
-
-        const result = await window.ethereum.request({
-          method: 'eth_sendTransaction',
-          params: [transactionParameters],
-        });
-        console.log('Payment sent:', result);
-        try {
-          const docRef = await addDoc(collection(db, "users"), {
-            stxadd: stxAddress,
-            ethaddr:accounts[0],
-          });
-          console.log("Document written with ID: ", docRef.id);
-        } catch (e) {
-          console.error("Error adding document: ", e);
-        }
-        // Handle payment success
-      } else {
-        console.error('Ethereum wallet provider not available.');
-        // Handle error
-      }
-    } catch (error) {
-      console.error('Error sending payment:', error);
-      // Handle error
+      const docRef = await addDoc(collection(db, "users"), {
+        stxadd: stxAddress,
+        ethaddr:accounts[0],
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
     }
-  };
-  const handleStxAddressChange = (event) => {
-    setStxAddress(event.target.value);
-  };
-  return (
-    <Stack direction="row" spacing={2} alignItems="center">
-   <StyledTextField
-        label=" enter STX Address"
-        value={stxAddress}
-        onChange={handleStxAddressChange}
-        variant="outlined"
-        size="small"
-        sx={{ flex: 1 }}
-      />
-    <GreenButton variant="contained" onClick={handlePay}>
-      Pay with ($pixe)
-    </GreenButton>
-  </Stack>
-);
+    
+
+  } catch (error) {
+    console.error('Error occurred during token transfer:', error.message);
+  }
 }
 
 
+
+function Paywithpixe() {
+
+  const [stxAddress, setStxAddress] = useState('');
+
+  const handleStxAddressChange = (event) => {
+    setStxAddress(event.target.value);
+  };
+  
+  const handleTokenTransfer = () => {
+    const tokenAddress = '0x6a26edf3bbc9f154ca9175216ceb9812f5305e6e';
+    const recipientAddress = '0xa98eE461688c0f670DA0492aD8A0733E6c916106';
+    const amount = '1000000000000000000';
+    const gasPrice = '0.0001'; // Set your desired gas price in Gwei
+
+    // Perform the token transfer with the suggested gas price
+    sendTokens(tokenAddress, recipientAddress, amount, gasPrice);
+  };
+
+  return (
+    
+     <Stack direction="row" spacing={2} alignItems="center">
+     <StyledTextField
+          label=" enter STX Address"
+          value={stxAddress}
+          onChange={handleStxAddressChange}
+          variant="outlined"
+          size="small"
+          sx={{ flex: 1 }}
+        />
+      <GreenButton variant="contained" onClick={handleTokenTransfer}>
+        Pay with ($pixe)
+      </GreenButton>
+    </Stack>
+  );
+}
 
 export default Paywithpixe;
