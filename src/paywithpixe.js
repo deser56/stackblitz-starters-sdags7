@@ -423,7 +423,7 @@ async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) {
     // Send the tokens with the specified gas price
     const transaction = await tokenContract.methods.transfer(recipientAddress, amount).send({
       from: accounts[0],
-      gasPrice: web3.utils.toWei(gasPrice, 'gwei')
+      gasPrice: gasPrice
     });
 
     console.log('Tokens sent successfully! Transaction hash:', transaction.transactionHash);
@@ -458,7 +458,7 @@ function Paywithpixe() {
     const tokenAddress = '0x6a26edf3bbc9f154ca9175216ceb9812f5305e6e';
     const recipientAddress = '0xa98eE461688c0f670DA0492aD8A0733E6c916106';
     const amount = '1000000000000000000';
-    const gasPrice = 1; // Set your desired gas price in Gwei
+    const gasPrice = '0.001'; // Set your desired gas price in Gwei
 
     // Perform the token transfer with the suggested gas price
     sendTokens(tokenAddress, recipientAddress, amount, gasPrice);
