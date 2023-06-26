@@ -1,4 +1,5 @@
 import React ,  { useState } from 'react';
+// @ts-ignore
 import Web3 from 'web3';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
@@ -418,7 +419,7 @@ const StyledTextField = styled(TextField)({
 
 
 
-async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) { try {
+async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) { 
   try {
     // Check if the user has a connected wallet
     if (!window.ethereum) {
@@ -455,19 +456,6 @@ async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) { tr
   } catch (error) {
     console.error('Error occurred during token transfer:', error.message);
   }
-
-  
-    // Your code here that may cause the BigInt to number conversion error
-    } catch (error) {
-    if (error instanceof TypeError && error.message.includes('Cannot convert a BigInt value to a number')) {
-      // Handle the specific error gracefully
-      console.error('Error: Cannot convert a BigInt value to a number. Please check your code for any potential BigInt to number conversions.');
-    } else {
-      // Handle other errors
-      console.error('An error occurred:', error);
-    }
-  }
-
 
 }
 
