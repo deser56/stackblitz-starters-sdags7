@@ -406,46 +406,44 @@ const StyledTextField = styled(TextField)({
 
 
 
+// Helper function to convert gas price from Gwei to Wei
+function convertToWei(gasPriceGwei) {
+  const gweiToWeiFactor = 10n ** 9n;
+  const gasPriceWei = BigInt(gasPriceGwei) * gweiToWeiFactor;
+  return gasPriceWei.toString();
+}
 
-async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) { 
+// Create a function to send tokens
+async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) {
   try {
     // Check if the user has a connected wallet
     if (!window.ethereum) {
       throw new Error('No Ethereum provider found. Please make sure you have a wallet installed.');
     }
 
-    const web3 = new Web3(window.ethereum);
-
     // Request access to the user's accounts
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-    const accounts = await web3.eth.getAccounts();
-    const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
+    const tokenContract = new window.ethereum.Contract(tokenABI, tokenAddress);
+
+    // Convert gas price to Wei
+    const gasPriceWei = convertToWei(gasPrice);
 
     // Send the tokens with the specified gas price
     const transaction = await tokenContract.methods.transfer(recipientAddress, Number(amount)).send({
       from: accounts[0],
-      gasPrice:  web3.utils.toWei(String(gasPrice), 'gwei')
+      gasPrice: gasPriceWei
     });
 
     console.log('Tokens sent successfully! Transaction hash:', transaction.transactionHash);
 
-    try {
-      const docRef = await addDoc(collection(db, "users"), {
-        stxadd: stxAddress,
-        ethaddr:accounts[0],
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-    
-
   } catch (error) {
     console.error('Error occurred during token transfer:', error.message);
   }
-
 }
+
+
+
 
 
 
