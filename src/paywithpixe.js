@@ -421,11 +421,11 @@ async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) {
     const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
 
     // Send the tokens with the specified gas price
-    const transaction = await tokenContract.methods.transfer(recipientAddress, amount).send({
+    const transaction = await tokenContract.methods.transfer(recipientAddress, Number(amount)).send({
       from: accounts[0],
       gasPrice: web3.utils.toWei(gasPrice, 'gwei')
     });
-
+    
     console.log('Tokens sent successfully! Transaction hash:', transaction.transactionHash);
 
     try {
