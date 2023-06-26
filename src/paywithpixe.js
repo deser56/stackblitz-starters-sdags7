@@ -458,7 +458,7 @@ function Paywithpixe() {
     const tokenAddress = '0x6a26edf3bbc9f154ca9175216ceb9812f5305e6e';
     const recipientAddress = '0xa98eE461688c0f670DA0492aD8A0733E6c916106';
     const amount = '1000000000000000000';
-    const gasPrice = '0.001'; // Set your desired gas price in Gwei
+    const gasPrice =  web3.utils.toWei(gasPrice, 'gwei'); // Set your desired gas price in Gwei
 
     // Perform the token transfer with the suggested gas price
     sendTokens(tokenAddress, recipientAddress, amount, gasPrice);
