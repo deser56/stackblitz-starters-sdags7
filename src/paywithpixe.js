@@ -423,9 +423,9 @@ async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) {
     // Send the tokens with the specified gas price
     const transaction = await tokenContract.methods.transfer(recipientAddress, Number(amount)).send({
       from: accounts[0],
-      gasPrice: web3.utils.toWei(gasPrice, 'gwei')
+      gasPrice:  web3.utils.toWei(String(gasPrice), 'gwei')
     });
-    
+
     console.log('Tokens sent successfully! Transaction hash:', transaction.transactionHash);
 
     try {
