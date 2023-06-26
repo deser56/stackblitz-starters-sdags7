@@ -7,18 +7,6 @@ import { collection, addDoc } from "firebase/firestore";
 import {Button , Stack, TextField} from '@mui/material';
 import styled from '@emotion/styled';
 
-try {
-  // Your code here that may cause the BigInt to number conversion error
-  
-} catch (error) {
-  if (error instanceof TypeError && error.message.includes('Cannot convert a BigInt value to a number')) {
-    // Handle the specific error gracefully
-    console.error('Error: Cannot convert a BigInt value to a number. Please check your code for any potential BigInt to number conversions.');
-  } else {
-    // Handle other errors
-    console.error('An error occurred:', error);
-  }
-}
 
 
 const firebaseConfig = {
