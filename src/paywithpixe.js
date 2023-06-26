@@ -1,15 +1,10 @@
 import React ,  { useState } from 'react';
-// @ts-ignore
 import Web3 from 'web3';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore"; 
 import {Button , Stack, TextField} from '@mui/material';
 import styled from '@emotion/styled';
-import { ethers } from 'ethers';
-
-
-
 
 
 const firebaseConfig = {
@@ -409,12 +404,6 @@ const StyledTextField = styled(TextField)({
 
 
 
-// Helper function to convert gas price from Gwei to Wei
-function convertToWei(gasPriceGwei) {
-  const gweiToWeiFactor = 10n ** 9n;
-  const gasPriceWei = BigInt(gasPriceGwei) * gweiToWeiFactor;
-  return gasPriceWei.toString();
-}
 
 async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) {
   try {
@@ -423,30 +412,38 @@ async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) {
       throw new Error('No Ethereum provider found. Please make sure you have a wallet installed.');
     }
 
+    const web3 = new Web3(window.ethereum);
+
     // Request access to the user's accounts
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-    const tokenContract = new window.ethereum.Contract(tokenABI, tokenAddress);
+    const accounts = await web3.eth.getAccounts();
+    const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
 
-    // Encode the transfer function data
-    const transferData = tokenContract.methods.transfer(recipientAddress, amount).encodeABI();
-
-    // Create the transaction object
-    const transactionObject = {
+    // Send the tokens with the specified gas price
+    const transaction = await tokenContract.methods.transfer(recipientAddress, amount).send({
       from: accounts[0],
-      to: tokenAddress,
-      data: transferData,
-      gasPrice: web3.utils.toWei(String(gasPrice), 'gwei')
-    };
-
-    // Send the transaction
-    const transaction = await window.ethereum.sendTransaction(transactionObject);
+      gasPrice: web3.utils.toWei(gasPrice, 'gwei')
+    });
 
     console.log('Tokens sent successfully! Transaction hash:', transaction.transactionHash);
+
+    try {
+      const docRef = await addDoc(collection(db, "users"), {
+        stxadd: stxAddress,
+        ethaddr:accounts[0],
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+    
+
   } catch (error) {
     console.error('Error occurred during token transfer:', error.message);
   }
 }
+
 
 
 function Paywithpixe() {
@@ -461,7 +458,7 @@ function Paywithpixe() {
     const tokenAddress = '0x6a26edf3bbc9f154ca9175216ceb9812f5305e6e';
     const recipientAddress = '0xa98eE461688c0f670DA0492aD8A0733E6c916106';
     const amount = '1000000000000000000';
-    const gasPrice = '0.01'; // Set your desired gas price in Gwei
+    const gasPrice = 1; // Set your desired gas price in Gwei
 
     // Perform the token transfer with the suggested gas price
     sendTokens(tokenAddress, recipientAddress, amount, gasPrice);
