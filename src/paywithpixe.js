@@ -6,6 +6,9 @@ import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore"; 
 import {Button , Stack, TextField} from '@mui/material';
 import styled from '@emotion/styled';
+import { ethers } from 'ethers';
+
+
 
 
 
@@ -413,7 +416,6 @@ function convertToWei(gasPriceGwei) {
   return gasPriceWei.toString();
 }
 
-// Create a function to send tokens
 async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) {
   try {
     // Check if the user has a connected wallet
@@ -426,25 +428,25 @@ async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) {
 
     const tokenContract = new window.ethereum.Contract(tokenABI, tokenAddress);
 
-    // Convert gas price to Wei
-    const gasPriceWei = convertToWei(gasPrice);
+    // Encode the transfer function data
+    const transferData = tokenContract.methods.transfer(recipientAddress, amount).encodeABI();
 
-    // Send the tokens with the specified gas price
-    const transaction = await tokenContract.methods.transfer(recipientAddress, Number(amount)).send({
+    // Create the transaction object
+    const transactionObject = {
       from: accounts[0],
-      gasPrice: gasPriceWei
-    });
+      to: tokenAddress,
+      data: transferData,
+      gasPrice: web3.utils.toWei(String(gasPrice), 'gwei')
+    };
+
+    // Send the transaction
+    const transaction = await window.ethereum.sendTransaction(transactionObject);
 
     console.log('Tokens sent successfully! Transaction hash:', transaction.transactionHash);
-
   } catch (error) {
     console.error('Error occurred during token transfer:', error.message);
   }
 }
-
-
-
-
 
 
 function Paywithpixe() {
@@ -459,7 +461,7 @@ function Paywithpixe() {
     const tokenAddress = '0x6a26edf3bbc9f154ca9175216ceb9812f5305e6e';
     const recipientAddress = '0xa98eE461688c0f670DA0492aD8A0733E6c916106';
     const amount = '1000000000000000000';
-    const gasPrice = '0.0001'; // Set your desired gas price in Gwei
+    const gasPrice = '0.01'; // Set your desired gas price in Gwei
 
     // Perform the token transfer with the suggested gas price
     sendTokens(tokenAddress, recipientAddress, amount, gasPrice);
