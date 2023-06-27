@@ -48,7 +48,7 @@ function Paywithpixe() {
   return (
     <Stack direction="row" spacing={2} alignItems="center">
       <GreenButton variant="contained" onClick={redirectToUniswap}>
-        Go to Uniswap and Swap to PIXE
+        Go to Uniswap to Swap to and pay in PIXE 
       </GreenButton>
     </Stack>
   );

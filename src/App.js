@@ -143,18 +143,12 @@ const App = () => {
       <StyledContainer>
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
       <Typography variant="body2" color="textSecondary" align="center">
-      <span style={{ fontSize: '0.8rem' }}>Connect Wallet First</span>
-      <br />
-      <span style={{ fontSize: '0.8rem' }}>Before Pressing "Pay with Pixe"</span>
+      <span style={{ fontSize: '0.8rem' }}>go to uniswap First</span>
       <br />
       <span style={{ fontSize: '0.8rem' }}>for Successful Transaction</span>
     </Typography>
         </Box>
-        <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-          <Stack direction="row" spacing={2}>
-            <EthereumButton />
-          </Stack>
-        </Box>
+        
 
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
           <Paywithpixe />
