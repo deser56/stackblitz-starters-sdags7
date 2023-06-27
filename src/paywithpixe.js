@@ -36,13 +36,13 @@ const StyledTextField = styled(TextField)({
 
 
 
-
 function redirectToUniswap() {
   const pixeAddress = '0x6a26edf3bbc9f154ca9175216ceb9812f5305e6e';
   const uniswapURL = `https://app.uniswap.org/#/swap?outputCurrency=${pixeAddress}`;
 
-  window.open(uniswapURL, '_blank');
+  window.location.href = uniswapURL;
 }
+
 
 function Paywithpixe() {
   return (
