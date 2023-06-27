@@ -48,7 +48,7 @@ const StyledTextField = styled(TextField)({
 
 
 
-function handlePostMessage(event) {
+async function handlePostMessage(event) {
   // Check if the event is coming from Uniswap
   if (event.origin.includes('https://app.uniswap.org')) {
     // Retrieve the transaction hash from the event data
