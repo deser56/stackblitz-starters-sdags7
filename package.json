@@ -17,12 +17,16 @@
     "@stacks/storage": "6.5.4",
     "@stacks/transactions": "6.5.4",
     "@types/react": "18.2.12",
-    "firebase": "^9.22.2",
+    "ethers": "6.6.1",
+    "firebase": "9.23.0",
+    "http": "^0.0.0",
     "jsontokens": "4.0.1",
     "mongodb-stitch-browser-sdk": "4.9.0",
+    "net": "^1.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "web3": "4.0.1"
+    "web3": "4.0.1",
+    "zlib": "^1.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
