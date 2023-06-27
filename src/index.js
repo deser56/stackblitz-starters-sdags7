@@ -1,14 +1,14 @@
 import React, { StrictMode, ErrorBoundary } from 'react';
+import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
+import ErrorSuppressor from './ErrorSuppressor';
+
 
 import App from './App';
 
-const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
-
-root.render(
-      <StrictMode>
-        <App />
-      </StrictMode>
+ReactDOM.render(
+  <ErrorSuppressor>
+    <App />
+  </ErrorSuppressor>,
+  document.getElementById('root')
 );
-
