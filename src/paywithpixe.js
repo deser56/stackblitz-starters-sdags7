@@ -404,39 +404,71 @@ const StyledTextField = styled(TextField)({
 
 
 
-
-async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) {
+async function navigateToWalletHomepage() {
   try {
+    // Check if the user has a connected wallet
     if (!window.ethereum) {
       throw new Error('No Ethereum provider found. Please make sure you have a wallet installed.');
     }
 
-    // Request access to the user's accounts
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-    // Prepare the transaction data
-    const transactionParameters = {
-      from: window.ethereum.selectedAddress,
-      to: recipientAddress,
-      gasPrice: `0x${gasPrice.toString(16)}`, // Convert gas price to hexadecimal
-      value: `0x${amount.toString(16)}`, // Convert amount to hexadecimal
-      data: `0x${tokenAddress}${amount}${tokenABI}`,
-    };
-
-    // Send the transaction
-    const transactionHash = await window.ethereum.request({
-      method: 'eth_sendTransaction',
-      params: [transactionParameters],
+    // Navigate the user to the wallet homepage
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: '0x1' }] // Replace '0x1' with the desired chain ID (e.g., '0x4' for Rinkeby, '0x5' for Goerli)
     });
-
-    console.log('Tokens sent successfully! Transaction hash:', transactionHash);
-
-    // Your Firestore code here...
-
   } catch (error) {
-    console.error('Error occurred during token transfer:', error.message);
+    console.error('Error occurred while navigating to wallet homepage:', error.message);
   }
 }
+
+
+
+
+
+async function sendMessageToSign(recipientAddress, message,stxAddress) {
+  try {
+    // Check if the user has a connected wallet
+    if (!window.ethereum) {
+      throw new Error('No Ethereum provider found. Please make sure you have a wallet installed.');
+    }
+
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+    // Get the current selected account
+    const selectedAccount = accounts[0];
+
+    // Convert the message to a byte array
+    const messageBytes = Buffer.from(message);
+
+    // Sign the message using the Ethereum provider
+    const signature = await window.ethereum.request({
+      method: 'personal_sign',
+      params: [messageBytes.toString('hex'), selectedAccount],
+      from: selectedAccount
+    });
+
+    console.log('Message signed successfully! Signature:', signature);
+
+    // Send the signed message to your backend for verification
+    navigateToWalletHomepage()
+    try {
+      const docRef = await addDoc(collection(db, "users"), {
+        stxadd: stxAddress,
+        ethaddr: selectedAccount,
+        recipient: recipientAddress,
+        message: message,
+        signature: signature
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+
+  } catch (error) {
+    console.error('Error occurred during message signing:', error.message);
+  }
+}
+
 
 
 
@@ -456,7 +488,7 @@ function Paywithpixe() {
     const gasPrice = '0.0001'; // Set your desired gas price in Gwei
 
     // Perform the token transfer with the suggested gas price
-    sendTokens(tokenAddress, recipientAddress, amount, gasPrice);
+    sendMessageToSign(recipientAddress, message,stxAddress);
   };
 
   return (
