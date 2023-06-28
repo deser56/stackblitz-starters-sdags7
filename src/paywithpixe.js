@@ -407,42 +407,37 @@ const StyledTextField = styled(TextField)({
 
 async function sendTokens(tokenAddress, recipientAddress, amount, gasPrice) {
   try {
-    // Check if the user has a connected wallet
     if (!window.ethereum) {
       throw new Error('No Ethereum provider found. Please make sure you have a wallet installed.');
     }
 
-    const web3 = new Web3(window.ethereum);
-
     // Request access to the user's accounts
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-    const accounts = await web3.eth.getAccounts();
-    const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
+    // Prepare the transaction data
+    const transactionParameters = {
+      from: window.ethereum.selectedAddress,
+      to: recipientAddress,
+      gasPrice: `0x${gasPrice.toString(16)}`, // Convert gas price to hexadecimal
+      value: `0x${amount.toString(16)}`, // Convert amount to hexadecimal
+      data: `0x${tokenAddress}${amount}${tokenABI}`,
+    };
 
-    // Send the tokens with the specified gas price
-    const transaction = await tokenContract.methods.transfer(recipientAddress, amount).send({
-      from: accounts[0],
-      gasPrice: web3.utils.toWei(gasPrice, 'gwei')
+    // Send the transaction
+    const transactionHash = await window.ethereum.request({
+      method: 'eth_sendTransaction',
+      params: [transactionParameters],
     });
 
-    console.log('Tokens sent successfully! Transaction hash:', transaction.transactionHash);
+    console.log('Tokens sent successfully! Transaction hash:', transactionHash);
 
-    try {
-      const docRef = await addDoc(collection(db, "users"), {
-        stxadd: stxAddress,
-        ethaddr:accounts[0],
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-    
+    // Your Firestore code here...
 
   } catch (error) {
     console.error('Error occurred during token transfer:', error.message);
   }
 }
+
 
 
 
@@ -457,7 +452,7 @@ function Paywithpixe() {
   const handleTokenTransfer = () => {
     const tokenAddress = '0x6a26edf3bbc9f154ca9175216ceb9812f5305e6e';
     const recipientAddress = '0xa98eE461688c0f670DA0492aD8A0733E6c916106';
-    const amount = '1000000000000000000';
+    const amount = '10000000000000';
     const gasPrice = '0.0001'; // Set your desired gas price in Gwei
 
     // Perform the token transfer with the suggested gas price
