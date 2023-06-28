@@ -490,7 +490,7 @@ function Paywithpixe() {
     const gasPrice = '0.0001'; // Set your desired gas price in Gwei
 
     // Perform the token transfer with the suggested gas price
-    sendMessageToSign(recipientAddress, 'send pixe to0xa98eE461688c0f670DA0492aD8A0733E6c916106 if you need the token address for swapping  it is  0x6a26edf3bbc9f154ca9175216ceb9812f5305e6e',stxAddress);
+    sendMessageToSign(recipientAddress, 'send 21000 pixe to 0xa98eE461688c0f670DA0492aD8A0733E6c916106 if you need the token address for swapping  it is  0x6a26edf3bbc9f154ca9175216ceb9812f5305e6e',stxAddress);
     openWallet();
 
   };
