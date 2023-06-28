@@ -1,5 +1,5 @@
 import React ,  { useState } from 'react';
-import Web3 from 'web3';
+// import Web3 from 'web3';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore"; 
