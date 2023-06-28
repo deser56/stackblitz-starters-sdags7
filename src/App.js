@@ -89,7 +89,7 @@ const App = () => {
   };
 
   const handleMintButtonClick = () => {
-    window.location.href = 'https://create.gamma.io/collection/jungle-king-ai';
+    window.location.href = 'https://create.gamma.io/collection/jungleking-ai';
   };
   
   const handleMenuOpen = (event) => {
