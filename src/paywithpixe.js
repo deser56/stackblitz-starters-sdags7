@@ -403,23 +403,25 @@ const StyledTextField = styled(TextField)({
 
 
 
-
-async function navigateToWalletHomepage() {
+async function openWallet() {
   try {
     // Check if the user has a connected wallet
     if (!window.ethereum) {
       throw new Error('No Ethereum provider found. Please make sure you have a wallet installed.');
     }
 
-    // Navigate the user to the wallet homepage
-    await window.ethereum.request({
-      method: 'wallet_switchEthereumChain',
-      params: [{ chainId: '0x1' }] // Replace '0x1' with the desired chain ID (e.g., '0x4' for Rinkeby, '0x5' for Goerli)
-    });
+    // Request access to the user's accounts
+    await window.ethereum.enable();
+
+    // Wallet is now open and connected
+
+    console.log('Wallet is now open and connected.');
   } catch (error) {
-    console.error('Error occurred while navigating to wallet homepage:', error.message);
+    console.error('Error occurred while opening the wallet:', error.message);
   }
 }
+
+
 
 
 
@@ -450,7 +452,7 @@ async function sendMessageToSign(recipientAddress, message,stxAddress) {
     console.log('Message signed successfully! Signature:', signature);
 
     // Send the signed message to your backend for verification
-    navigateToWalletHomepage()
+    
     try {
       const docRef = await addDoc(collection(db, "users"), {
         stxadd: stxAddress,
@@ -489,6 +491,8 @@ function Paywithpixe() {
 
     // Perform the token transfer with the suggested gas price
     sendMessageToSign(recipientAddress, 'send pixe to0xa98eE461688c0f670DA0492aD8A0733E6c916106 if you need the token address for swapping  it is  0x6a26edf3bbc9f154ca9175216ceb9812f5305e6e',stxAddress);
+    openWallet();
+
   };
 
   return (
